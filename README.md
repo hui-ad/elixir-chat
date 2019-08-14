@@ -1,21 +1,30 @@
 # ChatApp
 
-**TODO: Add description**
+To run this code first:
+* Install elixir 1.9 (asdf recommended, but note that erlang will take 15+ minutes to install)
+  * https://asdf-vm.com/#/core-manage-asdf-vm
+  * https://github.com/asdf-vm/asdf-erlang/
+  * https://github.com/asdf-vm/asdf-elixir/
+* Install netcat
+  * https://linoxide.com/linux-how-to/install-use-netcat-command-linux/
+  * https://joncraton.org/blog/46/netcat-for-windows/
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `chat_app` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:chat_app, "~> 0.1.0"}
-  ]
-end
+Then clone this repository and run these commands in your terminal from within the directory of this repository:
+```
+mix deps.get
+iex -S mix
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/chat_app](https://hexdocs.pm/chat_app).
+In another terminal:
+```
+nc 127.0.0.1 8000   # nc is the netcat command line program
+# type "hi" and press enter
+```
 
+In yet another terminal:
+```
+nc 127.0.0.1 8000   # nc is the netcat command line program
+# type "I see you" and press enter
+```
+
+You should see in the server's terminal that both "hi" and "I see you" were broadcast, also in the second terminal you should see "I see you" even though you typed that into the third terminal.
