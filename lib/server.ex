@@ -12,6 +12,8 @@ defmodule ChatApp.Server do
     {:ok, listening_socket} = :gen_tcp.listen(port, [:binary, active: true])
     Logger.info "Accepting connections on port #{port}..."
 
+    GenServer.cast(:socket_coordinator, {:listener_ready, listening_socket})
+
     {:ok, listening_socket}
   end
 end

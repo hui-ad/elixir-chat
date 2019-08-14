@@ -12,6 +12,7 @@ defmodule ChatApp.SocketConnection do
     :gen_tcp.send(socket, "Connected!\n")
 
     GenServer.cast(:socket_broadcaster, {:accepted, socket})
+    GenServer.cast(:socket_coordinator, {:listener_ready, listening_socket})
 
     {:ok, socket}
   end
@@ -24,11 +25,13 @@ defmodule ChatApp.SocketConnection do
 
   def handle_info({:tcp_closed, socket}, state) do
     GenServer.cast(:socket_broadcaster, {:disconnect, socket})
+    Logger.info "Client disconnected!"
 
     {:stop, :normal, state}
   end
 
   def handle_info({:tcp_error, socket}, state) do
+    Logger.info "Client disconnected!"
     GenServer.cast(:socket_broadcaster, {:disconnect, socket})
 
     {:stop, :normal, state}

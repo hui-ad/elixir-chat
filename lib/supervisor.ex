@@ -8,6 +8,7 @@ defmodule ChatApp.Supervisor do
 
   def init(_) do
     children = [
+      worker(ChatApp.SocketCoordinator, []),
       supervisor(ChatApp.SocketSupervisor, []),
       worker(ChatApp.SocketBroadcaster, []),
       worker(ChatApp.Server, [])
