@@ -2,10 +2,8 @@ defmodule ChatApp.Server do
   require Logger
   use GenServer
 
-  @port 8000
-
-  def start_link do
-    GenServer.start_link(__MODULE__, @port, name: :chat_server)
+  def start_link(port) do
+    GenServer.start_link(__MODULE__, port, name: :chat_server)
   end
 
   def init(port) do

@@ -1,17 +1,16 @@
 defmodule ChatApp.Supervisor do
-  require Logger
   use Supervisor
 
-  def start_link do
-    Supervisor.start_link(__MODULE__, [])
+  def start_link(port) do
+    Supervisor.start_link(__MODULE__, port)
   end
 
-  def init(_) do
+  def init(port) do
     children = [
       worker(ChatApp.SocketCoordinator, []),
       supervisor(ChatApp.SocketSupervisor, []),
       worker(ChatApp.SocketBroadcaster, []),
-      worker(ChatApp.Server, [])
+      worker(ChatApp.Server, [port])
     ]
 
     supervise(children, strategy: :one_for_one)
