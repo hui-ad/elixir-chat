@@ -3,14 +3,15 @@ defmodule ChatApp.Server do
   use GenServer
 
   def start_link(port) do
-    GenServer.start_link(__MODULE__, port, name: :chat_server)
+    GenServer.start_link(__MODULE__, port, name: __MODULE__)
   end
 
   def init(port) do
-    {:ok, listening_socket} = :gen_tcp.listen(port, [:binary, active: true])
-    Logger.info "Accepting connections on port #{port}..."
+    IO.inspect(port, label: "ChatApp.Server trying to listen on port")
+    {:ok, listening_socket} = :gen_tcp.listen(port, [:binary, active: true, reuseaddr: true])
+    Logger.info("Accepting connections on port #{port}...")
 
-    GenServer.cast(:socket_coordinator, {:listener_ready, listening_socket})
+    ChatApp.SocketCoordinator.listener_ready(listening_socket)
 
     {:ok, listening_socket}
   end
