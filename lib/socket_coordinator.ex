@@ -4,7 +4,7 @@ defmodule ChatApp.SocketCoordinator do
 
   @me __MODULE__
 
-  def start_link do
+  def start_link(_) do
     GenServer.start_link(__MODULE__, [], name: @me)
   end
 
