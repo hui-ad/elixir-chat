@@ -15,7 +15,7 @@ defmodule ChatApp.MixProject do
   def application do
     [
       mod: {ChatApp, []},
-      extra_applications: [:logger, :observer]
+      extra_applications: [:logger]
     ]
   end
 
