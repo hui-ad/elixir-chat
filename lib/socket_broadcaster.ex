@@ -4,7 +4,7 @@ defmodule ChatApp.SocketBroadcaster do
 
   @me __MODULE__
 
-  def start_link() do
+  def start_link(_args) do
     GenServer.start_link(__MODULE__, [], name: @me)
   end
 
